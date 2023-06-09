@@ -21,7 +21,7 @@ Why is stewardship of statistics necessary in statistical education? Check out [
 * Choi H, Detyniecki K, Bazil C, Thornton S, Crosta P, Tolba H, Muneeb M, Hirsch LJ, Heinzen EL, Sen A, Depondt C, Perucca P, Heiman GA; EPIGEN Consortium. Development and validation of a predictive model of drug-resistant genetic generalized epilepsy. Neurology. 2020 Oct 13;95(15):e2150-e2160. doi: 10.1212/WNL.0000000000010597. 
 * Michael H, Thornton S, Xie M, Tian L. [Exact inference on the random-effects model for meta-analyses with few studies](https://www.academia.edu/81301012/Exact_Inference_on_the_Random_Effects_Model_for_Meta_Analyses_with_Few_Studies). Biometrics. 2019 Jun;75(2):485-493. doi: 10.1111/biom.12998. 
 
-For more of my professional accomplishments, please see [my CV](https://github.com/ProfSuzy/SThorntonCV/blob/main/Thornton_Vita_2023.pdf) (updated June 2023).  
+For more of my professional accomplishments, please see [my CV](https://github.com/ProfSuzy/SThorntonCV/blob/main/Thornton_Vita.pdf) (updated June 2023).  
 
 # Contact Information 
 Department of Mathematics and Statistics
