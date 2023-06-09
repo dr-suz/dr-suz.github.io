@@ -20,7 +20,7 @@ Swarthmore College
 
 Work Phone: <a class="p-tel" href="tel:+16106906857">(610) 690-6857</a>
 
-Personal Email: <a href="mailto:thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com">thornton&lt:dot&suzy&lt;at&gt;gmail&lt;dot&gt;com</a>
+Personal Email: <a href="mailto:thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com">thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com</a>
 
 
 #### Social Links 
