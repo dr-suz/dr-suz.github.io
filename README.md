@@ -18,9 +18,9 @@ Department of Mathematics and Statistics
 Swarthmore College
 500 College Ave, PA 19081
 
-Phone: <a class="p-tel" href="tel:+16106906857">(610) 690-6857</a>
+Work Phone: <a class="p-tel" href="tel:+16106906857">(610) 690-6857</a>
 
-Email: <a href="mailto:thornton&lt;dot&suzy&lt;at&gt;gmail&lt;dot&gt;com">thornton&lt:dot&suzy&lt;at&gt;gmail&lt;dot&gt;com</a>
+Personal Email: <a href="mailto:thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com">thornton&lt:dot&suzy&lt;at&gt;gmail&lt;dot&gt;com</a>
 
 
 #### Social Links 
