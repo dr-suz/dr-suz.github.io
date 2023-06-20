@@ -6,9 +6,9 @@ Why is stewardship of statistics necessary in statistical education? Check out [
 
 # Undergraduate Teaching Material 
 
-* [Introduction to Statistics](https://profsuzy.github.io/Stat11/) (Stat1) 
-* [Introduction to Statistical Modeling](https://profsuzy.github.io/Stat21/) (Stat2)
-* [Mathematical Statistics](https://profsuzy.github.io/Stat61/)
+* [Introduction to Statistics](https://dr-suz.github.io/Stat11/) (Stat1) 
+* [Introduction to Statistical Modeling](https://dr-suz.github.io/Stat21/) (Stat2)
+* [Mathematical Statistics](https://dr-suz.github.io/Stat61/)
 
 
 # Selected Publications  
@@ -21,16 +21,17 @@ Why is stewardship of statistics necessary in statistical education? Check out [
 * Choi H, Detyniecki K, Bazil C, Thornton S, Crosta P, Tolba H, Muneeb M, Hirsch LJ, Heinzen EL, Sen A, Depondt C, Perucca P, Heiman GA; EPIGEN Consortium. Development and validation of a predictive model of drug-resistant genetic generalized epilepsy. Neurology. 2020 Oct 13;95(15):e2150-e2160. doi: 10.1212/WNL.0000000000010597. 
 * Michael H, Thornton S, Xie M, Tian L. [Exact inference on the random-effects model for meta-analyses with few studies](https://www.academia.edu/81301012/Exact_Inference_on_the_Random_Effects_Model_for_Meta_Analyses_with_Few_Studies). Biometrics. 2019 Jun;75(2):485-493. doi: 10.1111/biom.12998. 
 
-For more of my professional accomplishments, please see [my CV](https://github.com/ProfSuzy/SThorntonCV/blob/main/Thornton_Vita.pdf) (updated June 2023).  
+For more of my professional accomplishments, please see [my CV](https://github.com/dr-suz/SThorntonCV/blob/main/Thornton_Vita.pdf) (updated June 2023).  
 
 # Contact Information 
-Department of Mathematics and Statistics
+
+**Work Address:** Department of Mathematics and Statistics
 Swarthmore College
 500 College Ave, PA 19081
 
-Work Phone: <a class="p-tel" href="tel:+16106906857">(610) 690-6857</a>
+**Work Phone:** <a class="p-tel" href="tel:+16106906857">(610) 690-6857</a>
 
-Personal Email: <a href="mailto:thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com">thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com</a>
+**Personal Email:** <a href="mailto:thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com">thornton&lt;dot&gt;suzy&lt;at&gt;gmail&lt;dot&gt;com</a>
 
 
 ## Social Links 
