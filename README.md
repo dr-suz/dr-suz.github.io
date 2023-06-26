@@ -2,6 +2,10 @@
 
 Suzy (Suzanne) Thornton completed a B.S. in Mathematics and Statistics at the University of Florida and a Ph.D. in Statistics at Rutgers in 2019. In 2020 she chaired an ASA presidential working group on LGBTQ+ representation and inclusion in the discipline. In 2022 she was appointed to a three year term to serve on the National Advisory Committee for the US Census. She understands statistics as a language of science and her sholarship aims to promote stewardship of the discipline.
 
+* [View resume]() 
+
+* [View CV](https://github.com/dr-suz/SThorntonCV/blob/main/Thornton_Vita.pdf) 
+
 Why is stewardship necessary? For a poignant example, read [this article about "cargo-cult statistic"](https://doi.org/10.1111/j.1740-9713.2018.01174.x). For more examples, continue reading below! 
 
 # What are the responsibilities of a statistician? 
