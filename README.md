@@ -1,8 +1,14 @@
 # Suzanne Thornton
 
-Suzy (Suzanne) Thornton completed a B.S. in Mathematics and Statistics at the University of Florida and a Ph.D. in Statistics at Rutgers in 2019. In 2020 she chaired an ASA presidential working group on LGBTQ+ representation and inclusion in the discipline. In 2022 she was appointed to a three year term to serve on the National Advisory Committee for the US Census. Professor Suzy strives to teach her students to understand statistics as the language of science and prepare them to become stewards of the discipline.
+Suzy (Suzanne) Thornton completed a B.S. in Mathematics and Statistics at the University of Florida and a Ph.D. in Statistics at Rutgers in 2019. In 2020 she chaired an ASA presidential working group on LGBTQ+ representation and inclusion in the discipline. In 2022 she was appointed to a three year term to serve on the National Advisory Committee for the US Census. She understands statistics as a language of science and her sholarship aims to promote stewardship of the discipline.
 
-Why is stewardship of statistics necessary in statistical education? Check out [this article about "cargo-cult statistic"](https://doi.org/10.1111/j.1740-9713.2018.01174.x)
+Why is stewardship necessary? For a poignant example, read [this article about "cargo-cult statistic"](https://doi.org/10.1111/j.1740-9713.2018.01174.x). For more examples, continue reading below! 
+
+# What are the responsibilities of a statistician? 
+
+* International Statistical Institute's [Declaration on Professional Ethics 2010](https://isi-web.org/declaration-professional-ethics-2010)
+
+* American Statistical Association's [Ethical Guidelines for Statistical Practice](https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice)
 
 # Undergraduate Teaching Material 
 
