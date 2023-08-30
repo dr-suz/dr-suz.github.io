@@ -1,45 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
-  <title>Suzanne's website</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <!-- modernizr enables HTML5 elements and feature detects -->
-  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
-</head>
-
-<body>
-  <div id="main">
-    <header>
-      <div id="logo"><h1>MY<a href="#">PORTFOLIO</a>TWO</h1></div>
-      <nav>
-        <ul class="lavaLampWithImage" id="lava_menu">
-          <li><a href="index.html">home</a></li>
-          <li><a href="about.html">about me</a></li>
-          <li><a href="portfolio.html">my portfolio</a></li>
-         <!-- <li><a href="blog.html">blog</a></li> -->
-          <li class="current"><a href="contact.php">contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <div id="site_content">
-      <div id="sidebar_container">
-        <div> <!-- id="gallery"> -->
-          <ul class="images">
-            <li class="show"> <!--<img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
-            <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li> -->
-            <li><img width="450" height="450" src="images/3.jpg" alt="photo_three" /></li>
-            <!-- <li><img width="450" height="450" src="images/4.jpg" alt="photo_four" /></li>
-            <li><img width="450" height="450" src="images/5.jpg" alt="photo_five" /></li> -->
-          </ul>
-        </div>
-      </div>
-      <div id="content">
-        <h1>Contact</h1>
-        <?php
+<?php
           // Set-up these 3 parameters
           // 1. Enter the email address you would like the enquiry sent to
           // 2. Enter the subject of the email you will receive, when someone contacts you
@@ -78,7 +37,48 @@
           $number_1 = rand(1, 9);
           $number_2 = rand(1, 9);
           $answer = substr(md5($number_1+$number_2),5,10);
-        ?>
+?>
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Suzanne's website</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- modernizr enables HTML5 elements and feature detects -->
+  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <div id="logo"><h1>S.Thornton</h1></div>
+      <nav>
+        <ul class="lavaLampWithImage" id="lava_menu">
+          <li><a href="index.html">home</a></li>
+          <li><a href="about.html">about me</a></li>
+          <li><a href="portfolio.html">my portfolio</a></li>
+         <!-- <li><a href="blog.html">blog</a></li> -->
+          <li class="current"><a href="contact.php">contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="site_content">
+      <div id="sidebar_container">
+        <div> <!-- id="gallery"> -->
+          <ul class="images">
+            <li class="show"> <!--<img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
+            <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li> -->
+            <li><img width="450" height="450" src="images/3.jpg" alt="photo_three" /></li>
+            <!-- <li><img width="450" height="450" src="images/4.jpg" alt="photo_four" /></li>
+            <li><img width="450" height="450" src="images/5.jpg" alt="photo_five" /></li> -->
+          </ul>
+        </div>
+      </div>
+      <div id="content">
+        <h1>Contact</h1>
         <form id="contact" action="contact.php" method="post">
           <div class="form_settings">
             <p><span>Name</span><input class="contact" type="text" name="your_name" value="<?php echo $yourname; ?>" /></p>
