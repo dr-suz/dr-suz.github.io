@@ -18,10 +18,10 @@ article, aside, figure, footer, header, hgroup, nav, section {
   display:block;
 }
 
-body { 
+body { <!-- font/text of body -->
   font: normal .85em arial, sans-serif;
   background: #F5F5F5 url(../images/pattern.png);
-  color: #E9F7EF; 
+  color: #444; 
   padding-bottom: 40px;
 }
 
@@ -311,7 +311,7 @@ footer a:hover {
 
 ul.images {
   width:450px;
-  height:450px;
+  
   overflow:hidden;
   position:relative;
   margin:0;
