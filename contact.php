@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>my portfolio two</title>
+  <title>Suzanne's website</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -20,20 +20,20 @@
           <li><a href="index.html">home</a></li>
           <li><a href="about.html">about me</a></li>
           <li><a href="portfolio.html">my portfolio</a></li>
-          <li><a href="blog.html">blog</a></li>
+         <!-- <li><a href="blog.html">blog</a></li> -->
           <li class="current"><a href="contact.php">contact</a></li>
         </ul>
       </nav>
     </header>
     <div id="site_content">
       <div id="sidebar_container">
-        <div id="gallery">
+        <div> <!-- id="gallery"> -->
           <ul class="images">
-            <li class="show"><img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
-            <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li>
+            <li class="show"> <!--<img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
+            <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li> -->
             <li><img width="450" height="450" src="images/3.jpg" alt="photo_three" /></li>
-            <li><img width="450" height="450" src="images/4.jpg" alt="photo_four" /></li>
-            <li><img width="450" height="450" src="images/5.jpg" alt="photo_five" /></li>
+            <!-- <li><img width="450" height="450" src="images/4.jpg" alt="photo_four" /></li>
+            <li><img width="450" height="450" src="images/5.jpg" alt="photo_five" /></li> -->
           </ul>
         </div>
       </div>
@@ -92,7 +92,7 @@
       </div>
     </div>
     <footer>
-      <p><a href="index.html">home</a> | <a href="about.html">about me</a> | <a href="portfolio.html">my portfolio</a> | <a href="blog.html">blog</a> | <a href="contact.php">contact</a></p>
+      <p><a href="index.html">home</a> | <a href="about.html">about me</a> | <a href="portfolio.html">my portfolio</a> <!-- | <a href="blog.html">blog</a> --> | <a href="contact.php">contact</a></p>
       <p>&copy; 2012 my portfolio two. All Rights Reserved. | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
     </footer>
   </div>
@@ -100,7 +100,7 @@
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery.easing.min.js"></script>
   <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-  <script type="text/javascript" src="js/image_fade.js"></script>
+  <!-- <script type="text/javascript" src="js/image_fade.js"></script> -->
   <script type="text/javascript">
     $(function() {
       $("#lava_menu").lavaLamp({
