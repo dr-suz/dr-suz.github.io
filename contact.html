@@ -81,9 +81,9 @@
         ?>
         <form id="contact" action="contact.html" method="post">
           <div class="form_settings">
-            <p><span>Name</span><input class="contact" type="text" name="your_name" value="<?php echo $yourname; ?>" /></p>
-            <p><span>Email Address</span><input class="contact" type="text" name="your_email" value="<?php echo $youremail; ?>" /></p>
-            <p><span>Message</span><textarea class="contact textarea" rows="5" cols="50" name="your_message"><?php echo $yourmessage; ?></textarea></p>
+            <p><span>Name</span><input class="contact" type="text" name="your_name" value=" " /></p>
+            <p><span>Email Address</span><input class="contact" type="text" name="your_email" value=" " /></p>
+            <p><span>Message</span><textarea class="contact textarea" rows="5" cols="50" name="your_message"></textarea></p>
             <p style="padding: 10px 0; line-height: 2em;">To help prevent spam, please enter the answer to this question:</p>
             <p><span><?php echo $number_1; ?> + <?php echo $number_2; ?> = ?</span><input type="text" name="user_answer" /><input type="hidden" name="answer" value="<?php echo $answer; ?>" /></p>
             <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="send" /></p>
