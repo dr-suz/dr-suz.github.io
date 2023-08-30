@@ -310,13 +310,11 @@ footer a:hover {
 }
 
 ul.images {
-  width:450px;
-  
-  overflow:hidden;
+  max-width: 450px;
   position:relative;
   margin:0;
   padding:0;
-} 
+}
 
 ul.images li {
   position:absolute;
