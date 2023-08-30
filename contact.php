@@ -9,7 +9,8 @@
 
           // Do not amend anything below here, unless you know PHP
           function email_is_valid($email) {
-            return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i',$email);
+            // return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i',$email);
+            return preg_match('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$',$email);
           }
           if (!email_is_valid($to)) {
             echo '<p style="color: red;">You must set-up a valid (to) email address before this contact page will work.</p>';
