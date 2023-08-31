@@ -1,44 +1,4 @@
-<?php
-          // Set-up these 3 parameters
-          // 1. Enter the email address you would like the enquiry sent to
-          // 2. Enter the subject of the email you will receive, when someone contacts you
-          // 3. Enter the text that you would like the user to see once they submit the contact form
-          $to = 'thornton.suzy@gmail.com';
-          $subject = 'Enquiry from personal website';
-          $contact_submitted = 'Your message has been sent.';
 
-          // Do not amend anything below here, unless you know PHP
-          function email_is_valid($email) {
-            // return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i',$email);
-            return preg_match(^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4},$email);
-          }
-          if (!email_is_valid($to)) {
-            echo '<p style="color: red;">You must set-up a valid (to) email address before this contact page will work.</p>';
-          }
-          if (isset($_POST['contact_submitted'])) {
-            $return = "\r";
-            $youremail = trim(htmlspecialchars($_POST['your_email']));
-            $yourname = stripslashes(strip_tags($_POST['your_name']));
-            $yourmessage = stripslashes(strip_tags($_POST['your_message']));
-            $contact_name = "Name: ".$yourname;
-            $message_text = "Message: ".$yourmessage;
-            $user_answer = trim(htmlspecialchars($_POST['user_answer']));
-            $answer = trim(htmlspecialchars($_POST['answer']));
-            $message = $contact_name . $return . $message_text;
-            $headers = "From: ".$youremail;
-            if (email_is_valid($youremail) && !eregi("\r",$youremail) && !eregi("\n",$youremail) && $yourname != "" && $yourmessage != "" && substr(md5($user_answer),5,10) === $answer) {
-              mail($to,$subject,$message,$headers);
-              $yourname = '';
-              $youremail = '';
-              $yourmessage = '';
-              echo '<p style="color: blue;">'.$contact_submitted.'</p>';
-            }
-            else echo '<p style="color: red;">Please enter your name, a valid email address, your message and the answer to the simple maths question before sending your message.</p>';
-          }
-          $number_1 = rand(1, 9);
-          $number_2 = rand(1, 9);
-          $answer = substr(md5($number_1+$number_2),5,10);
-?>
 <!DOCTYPE HTML>
 <html>
 
@@ -82,12 +42,100 @@
         <h1>Contact</h1>
         <form id="contact" action="contact.php" method="post">
           <div class="form_settings">
-            <p><span>Name</span><input class="contact" type="text" name="your_name" value="<?php echo $yourname; ?>" /></p>
-            <p><span>Email Address</span><input class="contact" type="text" name="your_email" value="<?php echo $youremail; ?>" /></p>
-            <p><span>Message</span><textarea class="contact textarea" rows="5" cols="50" name="your_message"><?php echo $yourmessage; ?></textarea></p>
-            <p style="padding: 10px 0; line-height: 2em;">To help prevent spam, please enter the answer to this question:</p>
-            <p><span><?php echo $number_1; ?> + <?php echo $number_2; ?> = ?</span><input type="text" name="user_answer" /><input type="hidden" name="answer" value="<?php echo $answer; ?>" /></p>
-            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="send" /></p>
+            <?php if(!isset($_POST['send'])) { ?>
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <noscript><input type="hidden" name="havejs" id="havejs"></noscript>
+    <input type="hidden" name="send" value="send">
+    <!-- spam bait - if the bcc field contains anything, this email is rejected -->
+    <!--<input type="text" name="bcc" />-->
+    <!--<label for="bcc">Bcc</label>-->
+
+    <p><input type="text" name="name" required><label for="name">Name</label></p>
+    <p><input type="text" name="phone" required><label for="phone">Phone</label></p>
+    <p><input type="email" name="email" required><label for="email">Email</label></p>
+    <p><textarea name="message" required></textarea><label for="message">Message</label></p>
+    <p><input type="submit" value="Send message"></p>
+  </form>
+<?php
+}
+
+if(isset($_POST['send'])) {
+  // extra check for non-HTML pages/browsers
+  function chip_get_my_valid_email($email) {
+    return preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $email);
+  }
+  function chip_get_my_bot() {
+    $bots = array("Indy", "Blaiz", "Java", "libwww-perl", "Python", "OutfoxBot", "User-Agent", "PycURL", "AlphaServer", "T8Abot", "Syntryx", "WinHttp", "WebBandit", "nicebot", "Teoma", "alexa", "froogle", "inktomi", "looksmart", "URL_Spider_SQL", "Firefly", "NationalDirectory", "Ask Jeeves", "TECNOSEEK", "InfoSeek", "WebFindBot", "girafabot", "crawler", "www.galaxy.com", "Googlebot", "Scooter", "Slurp", "appie", "FAST", "WebBug", "Spade", "ZyBorg", "rabaz");
+    foreach($bots as $bot)
+      if(stripos($_SERVER['HTTP_USER_AGENT'], $bot) !== false)
+        return true;
+      if(empty($_SERVER['HTTP_USER_AGENT']) || $_SERVER['HTTP_USER_AGENT'] == " ")
+        return true;
+    return false;
+  }
+  function chip_get_my_clean_string($string) {
+    $bad = array('content-type', 'bcc:', 'to:', 'cc:', 'href');
+    return str_replace($bad, '', $string);
+  }
+  function chip_get_my_ip() {
+    if(!empty($_SERVER['HTTP_CLIENT_IP']))
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else
+      $ip = $_SERVER['REMOTE_ADDR'];
+    return $ip;
+  }
+
+  $bcc    = filter_var($_POST['bcc'], FILTER_SANITIZE_STRING);
+
+  $name     = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+  $phone    = filter_var($_POST['phone'], FILTER_SANITIZE_STRING);
+  $email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+
+  $message  = filter_var($_POST['message'], FILTER_SANITIZE_SPECIAL_CHARS);
+  $message  = filter_var($_POST['message'], FILTER_SANITIZE_STRING);
+
+  $name     = chip_get_my_clean_string($name);
+  $phone    = chip_get_my_clean_string($phone);
+  $email    = chip_get_my_clean_string($email);
+  $message  = chip_get_my_clean_string($message);
+
+  // HEADERS
+  $headers = 'MIME-Version: 1.0' . "\r\n";
+  $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+
+  // Additional headers
+  $headers .= 'To: Recipient Name <info@domain.com' . "\r\n";
+  $headers .= 'From: Sender Name <info@domain.com>' . "\r\n";
+
+  $headers .= 'Reply-To: info@domain.com' . "\r\n";
+  $headers .='X-Mailer: PHP/' . phpversion();
+
+  $subject = "Your Email Subject Here";
+  $mail = "recipient@domain.com";
+
+  $message=' 
+    <strong>Name:</strong> ' . $name . '<br>
+    <strong>Phone:</strong> ' . $phone . '<br>
+    <strong>Email:</strong> ' . $email . '<br>
+    <strong>Message:</strong> ' . $message . '<br><br>
+    Message from http://dr-suz.github.io/<br><br>
+    ==<br>
+    <small><strong>Sender IP:</strong> ' . chip_get_my_ip() . '</small><br>
+    <small><strong>Sender Browser:</strong> ' . $_SERVER['HTTP_USER_AGENT'] . '</small><br>
+    <small><strong>Sender OS:</strong> ' . $_SERVER['SERVER_SOFTWARE'] . '</small>
+  ';
+
+  if($bcc == '' && !isset($_POST['havejs']) && $name != '' && $email != '' && $message != '' && chip_get_my_valid_email($email) && $_SERVER['REQUEST_METHOD'] == 'POST' && chip_get_my_bot() == false) {
+    mail($mail, $subject, $message, $headers);
+    echo '<p>Message sent!</p><p>Thank you!</p>';
+  }
+  else {
+    echo '<p>Error!</p><p>Please fill in all fields!</p>';
+  }
+}
+?>
           </div>
         </form>
       </div>
