@@ -61,7 +61,7 @@
           <li><a href="index.html">home</a></li>
           <li><a href="about.html">about me</a></li>
           <li><a href="portfolio.html">my portfolio</a></li>
-         <!-- <li><a href="blog.html">blog</a></li> -->
+          <li><a href="fun.html">just for fun</a></li> 
           <li class="current"><a href="contact.php">contact</a></li>
         </ul>
       </nav>
@@ -93,7 +93,7 @@
       </div>
     </div>
     <footer>
-      <p><a href="index.html">home</a> | <a href="about.html">about me</a> | <a href="portfolio.html">my portfolio</a> <!-- | <a href="blog.html">blog</a> --> | <a href="contact.php">contact</a></p>
+      <p><a href="index.html">home</a> | <a href="about.html">about me</a> | <a href="portfolio.html">my portfolio</a> | <a href="fun.html">just for fun</a> --> | <a href="contact.php">contact</a></p>
       <p>&copy; 2012 my portfolio two. All Rights Reserved. | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
     </footer>
   </div>
