@@ -25,6 +25,12 @@ body { <!-- font/text of body -->
   padding-bottom: 40px;
 }
 
+/*ST added for background image in quotes.html*/
+
+body img {
+  background-image: url('images/scroll.jpeg');
+}
+
 p { 
   padding: 0 0 20px 0;
   line-height: 1.5em;
@@ -383,7 +389,7 @@ ul img {
 }
 
 
-/* added by ST for background image in quotes.html */
+/* added by ST for background image in quotes.html 
 section{
     height:100vh;
     width: 100%;
@@ -395,3 +401,4 @@ section{
 .image-scroll {
   background-image: url('images/scroll.jpeg')
 }
+*/
