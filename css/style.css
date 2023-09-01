@@ -381,3 +381,17 @@ ul img {
 .lavaLampWithImage li a:hover, .lavaLampWithImage li a:active, .lavaLampWithImage li a:visited {
   border: none;
 }
+
+
+/* added by ST for background image in quotes.html */
+section{
+    height:100vh;
+    width: 100%;
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   background-attachment: fixed;
+}
+.image-scroll {
+  background-image: url('images/scroll.jpeg')
+}
