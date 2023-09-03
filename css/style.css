@@ -26,8 +26,6 @@ body { <!-- font/text of body -->
 }
 
 /*ST added for background image in quotes.html*/
-
-
 .quotesBackground {
   background-image: url('images/scroll.jpeg');
   background-size: cover;
