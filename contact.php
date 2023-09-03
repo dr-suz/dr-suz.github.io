@@ -1,46 +1,3 @@
-<?php
-          // Set-up these 3 parameters
-          // 1. Enter the email address you would like the enquiry sent to
-          // 2. Enter the subject of the email you will receive, when someone contacts you
-          // 3. Enter the text that you would like the user to see once they submit the contact form
-          $to = thornton.suzy@gmail.com;
-          $subject = 'Enquiry from personal website';
-          $contact_submitted = 'Your message has been sent.';?>
-
-          <?php 
-          // Do not amend anything below here, unless you know PHP
-          function email_is_valid($email) {
-            return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i',$email);
-          };?>
-          <?php 
-          if (!email_is_valid($to)) {
-            echo '<p style="color: red;">You must set-up a valid (to) email address before this contact page will work.</p>';
-          };?>
-          <?php
-          if (isset($_POST['contact_submitted'])) {
-            $return = "\r";
-            $youremail = trim(htmlspecialchars($_POST['your_email']));
-            $yourname = stripslashes(strip_tags($_POST['your_name']));
-            $yourmessage = stripslashes(strip_tags($_POST['your_message']));
-            $contact_name = "Name: ".$yourname;
-            $message_text = "Message: ".$yourmessage;
-            $user_answer = trim(htmlspecialchars($_POST['user_answer']));
-            $answer = trim(htmlspecialchars($_POST['answer']));
-            $message = $contact_name . $return . $message_text;
-            $headers = "From: ".$youremail;
-            if (email_is_valid($youremail) && !eregi("\r",$youremail) && !eregi("\n",$youremail) && $yourname != "" && $yourmessage != "" && substr(md5($user_answer),5,10) === $answer) {
-              mail($to,$subject,$message,$headers);
-              $yourname = '';
-              $youremail = '';
-              $yourmessage = '';
-              echo '<p style="color: blue;">'Your message has been sent.'</p>';
-            }
-            else echo '<p style="color: red;">Please enter your name, a valid email address, your message and the answer to the simple maths question before sending your message.</p>';
-};?>
-          
-<?php $number_1 = rand(1, 9);?>
-<?php $number_2 = rand(1, 9);?>
-<?php $answer = substr(md5($number_1+$number_2),5,10);?>
 <!DOCTYPE HTML>
 <html>
 
@@ -82,7 +39,49 @@
       </div>
       <div id="content">
         <h1>Contact</h1>
+        <?php
+          // Set-up these 3 parameters
+          // 1. Enter the email address you would like the enquiry sent to
+          // 2. Enter the subject of the email you will receive, when someone contacts you
+          // 3. Enter the text that you would like the user to see once they submit the contact form
+          $to = 'thornton.suzy@gmail.com';
+          $subject = 'Enquiry from personal website';
+          $contact_submitted = 'Your message has been sent.';?>
 
+          <?php 
+          // Do not amend anything below here, unless you know PHP
+          function email_is_valid($email) {
+            return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i',$email);
+          };?>
+          <?php 
+          if (!email_is_valid($to)) {
+            echo '<p style="color: red;">You must set-up a valid (to) email address before this contact page will work.</p>';
+          };?>
+          <?php
+          if (isset($_POST['contact_submitted'])) {
+            $return = "\r";
+            $youremail = trim(htmlspecialchars($_POST['your_email']));
+            $yourname = stripslashes(strip_tags($_POST['your_name']));
+            $yourmessage = stripslashes(strip_tags($_POST['your_message']));
+            $contact_name = "Name: ".$yourname;
+            $message_text = "Message: ".$yourmessage;
+            $user_answer = trim(htmlspecialchars($_POST['user_answer']));
+            $answer = trim(htmlspecialchars($_POST['answer']));
+            $message = $contact_name . $return . $message_text;
+            $headers = "From: ".$youremail;
+            if (email_is_valid($youremail) && !eregi("\r",$youremail) && !eregi("\n",$youremail) && $yourname != "" && $yourmessage != "" && substr(md5($user_answer),5,10) === $answer) {
+              mail($to,$subject,$message,$headers);
+              $yourname = '';
+              $youremail = '';
+              $yourmessage = '';
+              echo '<p style="color: blue;">'Your message has been sent.'</p>';
+            }
+            else echo '<p style="color: red;">Please enter your name, a valid email address, your message and the answer to the simple maths question before sending your message.</p>';
+          };?>
+          
+          <?php $number_1 = rand(1, 9);?>
+          <?php $number_2 = rand(1, 9);?>
+          <?php $answer = substr(md5($number_1+$number_2),5,10);?>
         
         <form id="contact" action="contact.html" method="post">
           <div class="form_settings">
