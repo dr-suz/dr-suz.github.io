@@ -1,4 +1,4 @@
-        <?php
+<?php
           // Set-up these 3 parameters
           // 1. Enter the email address you would like the enquiry sent to
           // 2. Enter the subject of the email you will receive, when someone contacts you
@@ -36,11 +36,11 @@
               echo '<p style="color: blue;">'Your message has been sent.'</p>';
             }
             else echo '<p style="color: red;">Please enter your name, a valid email address, your message and the answer to the simple maths question before sending your message.</p>';
-          };?>
+};?>
           
-          <?php $number_1 = rand(1, 9);?>
-          <?php $number_2 = rand(1, 9);?>
-          <?php $answer = substr(md5($number_1+$number_2),5,10);?>
+<?php $number_1 = rand(1, 9);?>
+<?php $number_2 = rand(1, 9);?>
+<?php $answer = substr(md5($number_1+$number_2),5,10);?>
 <!DOCTYPE HTML>
 <html>
 
