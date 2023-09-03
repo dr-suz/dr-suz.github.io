@@ -25,12 +25,12 @@ body { <!-- font/text of body -->
   padding-bottom: 40px;
 }
 
-/*ST added for background image in quotes.html*/
+/*ST added for background image in quotes.html
 .quotesBackground {
   background-image: url('images/scroll.jpeg');
   background-size: cover;
   background-size: contain;
-}
+}*/
 
 
 p { 
