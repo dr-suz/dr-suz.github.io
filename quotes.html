@@ -1,46 +1,698 @@
-<!DOCTYPE HTML>
-<html>
-
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Suzanne's quotes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suzanne's Quotes</title>
+  
+  <!-- Modern jQuery via CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    /* --- Background --- */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a1a;
+      background-image: url('images/scroll.jpeg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 1440px 700px;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+    }
+
+    /* --- LEFT SIDEBAR --- */
+    #sidebar {
+      width: 280px;
+      min-height: 100vh;
+      background: rgba(10, 10, 30, 0.92);
+      padding: 30px 20px;
+      box-sizing: border-box;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    #sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    #sidebar::-webkit-scrollbar-thumb {
+      background: #8a7a5a;
+      border-radius: 3px;
+    }
+
+    .sidebar-title {
+      color: #d4c9b0;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin: 0 0 5px 0;
+      font-size: 1.6rem;
+    }
+    .sidebar-subtitle {
+      color: #b0a890;
+      font-size: 0.85rem;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      color: #c0b090;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid rgba(255,255,255,0.08);
+      width: fit-content;
+    }
+    .back-btn:hover {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+
+    /* Search */
+    #search-box {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.08);
+      color: #e8e6e0;
+      outline: none;
+      box-sizing: border-box;
+      transition: background 0.2s;
+    }
+    #search-box::placeholder {
+      color: #6a6a5a;
+    }
+    #search-box:focus {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Tag pills */
+    #tag-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .tag-pill {
+      display: inline-block;
+      background: rgba(200, 180, 150, 0.12);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #c0b090;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tag-pill:hover, .tag-pill.active {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+    .tag-pill.active {
+      font-weight: 600;
+    }
+    #clear-tags {
+      background: rgba(200, 80, 80, 0.25);
+      color: #e8a0a0;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: none;
+      margin-left: 4px;
+    }
+    #clear-tags:hover {
+      background: rgba(200, 80, 80, 0.5);
+    }
+
+    /* Share button (at bottom) */
+    .share-btn {
+      margin-top: auto;
+      background: rgba(100, 140, 200, 0.15);
+      color: #a0c0e0;
+      border: 1px solid rgba(100, 140, 200, 0.25);
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s, color 0.2s;
+      text-align: center;
+      width: 100%;
+    }
+    .share-btn:hover {
+      background: rgba(100, 140, 200, 0.3);
+      color: #c0e0ff;
+    }
+
+    /* --- MAIN CONTENT (right side) --- */
+    #main-content {
+      flex: 1;
+      padding: 40px 40px 40px 30px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      box-sizing: border-box;
+    }
+
+    #quotes-box {
+      width: 100%;
+      max-width: 750px;
+      background: rgba(10, 10, 30, 0.75);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #e8e6e0;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    #quotes-box::-webkit-scrollbar {
+      width: 8px;
+    }
+    #quotes-box::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.03);
+      border-radius: 4px;
+    }
+    #quotes-box::-webkit-scrollbar-thumb {
+      background: #8a7a5a;
+      border-radius: 4px;
+    }
+
+    /* Quote list */
+    #quote-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    #quote-list li {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    #quote-list li:last-child {
+      border-bottom: none;
+    }
+    .quote-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .quote-source {
+      font-size: 0.9rem;
+      color: #b0a890;
+      font-style: italic;
+    }
+    .quote-tags {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .quote-tag {
+      font-size: 0.7rem;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 8px;
+      border-radius: 12px;
+      color: #a09080;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .quote-tag:hover {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+
+    /* Pagination */
+    #pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    #pagination button {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #e8e6e0;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    #pagination button:hover:not(:disabled) {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+    #pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    #page-info {
+      font-size: 0.9rem;
+      color: #b0a890;
+    }
+
+    /* Footer inside main content */
+    .main-footer {
+      margin-top: 25px;
+      font-size: 0.7rem;
+      color: #5a5a4a;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 16px;
+    }
+
+    /* --- SHARE MODAL --- */
+    #share-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #share-modal.show {
+      display: flex;
+    }
+    .modal-box {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #e8e6e0;
+    }
+    .modal-box h2 {
+      margin-top: 0;
+      color: #d4c9b0;
+      font-weight: 300;
+    }
+    .modal-box label {
+      display: block;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #b0a890;
+    }
+    .modal-box input, .modal-box textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 4px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: #e8e6e0;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .modal-box input:focus, .modal-box textarea:focus {
+      background: rgba(255,255,255,0.15);
+    }
+    .modal-box textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+    .modal-actions button {
+      padding: 8px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .modal-actions .cancel-btn {
+      background: rgba(255,255,255,0.08);
+      color: #b0a890;
+    }
+    .modal-actions .cancel-btn:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .modal-actions .send-btn {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+    .modal-actions .send-btn:hover {
+      background: #a09070;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 800px) {
+      body {
+        flex-direction: column;
+        background-position: top center;
+        background-size: contain;
+      }
+      #sidebar {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding: 20px;
+      }
+      #main-content {
+        padding: 20px;
+      }
+      #quotes-box {
+        max-height: none;
+      }
+    }
+  </style>
 </head>
+<body>
 
-<style>
-body {
-  background-image: url('images/scroll.jpeg');
-  background-size: 1440px 700px;
-  /*background-size: cover;*/
-  /* background-size: contain; */
-  background-repeat: no-repeat;
-}
-</style>
+<!-- ===== SIDEBAR ===== -->
+<div id="sidebar">
+  <h1 class="sidebar-title">Quotes</h1>
+  <div class="sidebar-subtitle">In quoting others, we cite ourselves.</div>
 
-<!-- <div class="quotesBackground"> </div> --> 
+  <!-- Back button -->
+  <a href="fun.html" class="back-btn">← Back to Fun</a>
 
-<!--<body img> style="background-image:url('images/scroll.jpeg');" -->  
-  <div id="main">
-    <header>
-      <div id="logo"><h1>Quotes</h1></div>
-    </header>
-   </div>
-   <div id="content", id="main">
-      <h2>In quoting others, we cite ourselves. <small>- Julio Cortázar</small> </h2>
-      <ol>
-        <li><blockquote>Life isn't about finding yourself. Life is about creating yourself. <small>- George Bernard Shaw</small></blockquote></li>
-        <li><blockquote>Once in a while it really hits people that they don't have to experience the world in the way they have been told to. <small>- Alan Keightley</small></blockquote></li>
-        <li><blockquote>Do I contradict myself? <br> 
-                    Very well then I contradict myself, <br> 
-                    (I am large, I contain multitudes.) <small>- Walt Whitman, Leaves of Grass</small></blockquote></li>
-        <li><blockquote>I have learned silence from the talkative, toleration from the intolerant, and kindness from the unkind; yet strange, I am ungrateful to these teachers. <small>- Kahlil Gibran</small></blockquote></li>
-      </ol>
-        <p>More to be added in time. <!--Until then, here are <a href="https://www.goodreads.com/quotes/list?ref=nav_profile_quotes">some more quotes</a> I've saved on Goodreads.--></p> 
-      </div>
-   <div>
-    <footer> 
-      <p><font color="white">&copy; 2023 Suzanne Thornton. All Rights Reserved. <br>
-        <b>Image:</b> <i>MegaPixel</i> on Shutterstock.</font></p>
-    </footer>
+  <!-- Search -->
+  <input type="text" id="search-box" placeholder="Search quotes or authors...">
+
+  <!-- Tag filter -->
+  <div id="tag-filter"></div>
+
+  <!-- Share button (bottom of sidebar) -->
+  <button class="share-btn" id="open-share-modal">✉ Share a Quote</button>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main-content">
+  <div id="quotes-box">
+    <ul id="quote-list"></ul>
+
+    <div id="pagination">
+      <button id="prev-page" disabled>← Previous</button>
+      <span id="page-info">Page 1 / 1</span>
+      <button id="next-page" disabled>Next →</button>
+    </div>
+
+    <div class="main-footer">
+      &copy; 2023 Suzanne Thornton. All Rights Reserved.<br>
+      <b>Image:</b> <i>MegaPixel</i> on Shutterstock.
+    </div>
   </div>
-<!-- </body> --> 
+</div>
+
+<!-- ===== SHARE MODAL ===== -->
+<div id="share-modal">
+  <div class="modal-box">
+    <h2>Share a Quote</h2>
+    <p style="color:#b0a890;font-size:0.9rem;">Send me a quote you love! I'll review it and may add it to the page.</p>
+    
+    <label>Your Name (optional)</label>
+    <input type="text" id="share-name" placeholder="Anonymous">
+
+    <label>Quote</label>
+    <textarea id="share-quote" placeholder="Write the quote here..."></textarea>
+
+    <label>Author / Source</label>
+    <input type="text" id="share-source" placeholder="e.g. Maya Angelou">
+
+    <div class="modal-actions">
+      <button class="cancel-btn" id="close-share-modal">Cancel</button>
+      <button class="send-btn" id="send-share-form">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+
+    // ============================================================
+    // 1. QUOTES DATABASE (JSON)
+    // ============================================================
+    const quotesData = [
+      {
+        text: "Fiction is a particularly effective way for strangers to connect across time and distance.",
+        source: "Jonathan Franzen, Freedom",
+        tags: ["#fiction", "#connection", "#reading"]
+      },
+      {
+        text: "Life isn't about finding yourself. Life is about creating yourself.",
+        source: "George Bernard Shaw",
+        tags: ["#life", "#self", "#growth"]
+      },
+      {
+        text: "Once in a while it really hits people that they don't have to experience the world in the way they have been told to.",
+        source: "Alan Keightley",
+        tags: ["#awareness", "#mindset", "#truth"]
+      },
+      {
+        text: "Do I contradict myself? <br> Very well then I contradict myself, <br> (I am large, I contain multitudes.)",
+        source: "Walt Whitman, Leaves of Grass",
+        tags: ["#poetry", "#self", "#complexity"]
+      },
+      {
+        text: "I have learned silence from the talkative, toleration from the intolerant, and kindness from the unkind; yet strange, I am ungrateful to these teachers.",
+        source: "Kahlil Gibran",
+        tags: ["#wisdom", "#learning", "#kindness"]
+      },
+      {
+        text: "The only way to do great work is to love what you do.",
+        source: "Steve Jobs",
+        tags: ["#work", "#passion", "#success"]
+      },
+      {
+        text: "In the middle of difficulty lies opportunity.",
+        source: "Albert Einstein",
+        tags: ["#opportunity", "#resilience", "#life"]
+      },
+      {
+        text: "Be yourself; everyone else is already taken.",
+        source: "Oscar Wilde",
+        tags: ["#authenticity", "#self", "#humor"]
+      },
+      {
+        text: "Two roads diverged in a wood, and I— I took the one less traveled by, And that has made all the difference.",
+        source: "Robert Frost",
+        tags: ["#poetry", "#choice", "#journey"]
+      },
+      {
+        text: "It does not do to dwell on dreams and forget to live.",
+        source: "J.K. Rowling, Harry Potter",
+        tags: ["#fantasy", "#life", "#action"]
+      },
+      {
+        text: "To be, or not to be: that is the question.",
+        source: "William Shakespeare, Hamlet",
+        tags: ["#classic", "#philosophy", "#drama"]
+      },
+      {
+        text: "The journey of a thousand miles begins with one step.",
+        source: "Lao Tzu",
+        tags: ["#action", "#perseverance", "#wisdom"]
+      }
+    ];
+
+    // ============================================================
+    // 2. APP STATE
+    // ============================================================
+    const QUOTES_PER_PAGE = 10;
+    let currentPage = 1;
+    let filteredQuotes = [];
+    let activeTag = null;
+    let searchTerm = "";
+
+    // ============================================================
+    // 3. CORE FUNCTIONS
+    // ============================================================
+
+    function getAllTags() {
+      let tagSet = new Set();
+      quotesData.forEach(q => q.tags.forEach(t => tagSet.add(t)));
+      return Array.from(tagSet).sort();
+    }
+
+    function filterQuotes() {
+      let result = quotesData;
+
+      if (searchTerm.trim() !== "") {
+        const term = searchTerm.trim().toLowerCase();
+        result = result.filter(q => 
+          q.text.toLowerCase().includes(term) || 
+          q.source.toLowerCase().includes(term)
+        );
+      }
+
+      if (activeTag !== null) {
+        result = result.filter(q => q.tags.includes(activeTag));
+      }
+
+      filteredQuotes = result;
+      currentPage = 1;
+      render();
+    }
+
+    function render() {
+      const totalPages = Math.ceil(filteredQuotes.length / QUOTES_PER_PAGE) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * QUOTES_PER_PAGE;
+      const end = start + QUOTES_PER_PAGE;
+      const pageQuotes = filteredQuotes.slice(start, end);
+
+      const listHtml = pageQuotes.map(q => {
+        const tagsHtml = q.tags.map(t => 
+          `<span class="quote-tag" data-tag="${t}">${t}</span>`
+        ).join(' ');
+        return `
+          <li>
+            <div class="quote-text">${q.text}</div>
+            <div class="quote-source">— ${q.source}</div>
+            <div class="quote-tags">${tagsHtml}</div>
+          </li>
+        `;
+      }).join('');
+
+      $('#quote-list').html(listHtml || '<li style="text-align:center;color:#6a6a5a;">No quotes match your filters.</li>');
+
+      $('#page-info').text(`Page ${currentPage} / ${totalPages}`);
+      $('#prev-page').prop('disabled', currentPage === 1);
+      $('#next-page').prop('disabled', currentPage === totalPages);
+
+      renderTagPills();
+      $('#clear-tags').toggle(activeTag !== null);
+    }
+
+    function renderTagPills() {
+      const allTags = getAllTags();
+      let html = '';
+      allTags.forEach(t => {
+        const activeClass = (t === activeTag) ? 'active' : '';
+        html += `<span class="tag-pill ${activeClass}" data-tag="${t}">${t}</span>`;
+      });
+      $('#tag-filter').html(html + '<span id="clear-tags" style="display:none;">✕ Clear filter</span>');
+      if (activeTag !== null) $('#clear-tags').show();
+    }
+
+    // ============================================================
+    // 4. EVENT LISTENERS
+    // ============================================================
+
+    $('#search-box').on('input', function() {
+      searchTerm = $(this).val();
+      filterQuotes();
+    });
+
+    $(document).on('click', '.tag-pill, .quote-tag', function() {
+      const tag = $(this).data('tag');
+      activeTag = (activeTag === tag) ? null : tag;
+      filterQuotes();
+    });
+
+    $(document).on('click', '#clear-tags', function() {
+      activeTag = null;
+      filterQuotes();
+    });
+
+    $('#prev-page').click(function() {
+      if (currentPage > 1) { currentPage--; render(); }
+    });
+
+    $('#next-page').click(function() {
+      const totalPages = Math.ceil(filteredQuotes.length / QUOTES_PER_PAGE) || 1;
+      if (currentPage < totalPages) { currentPage++; render(); }
+    });
+
+    // ============================================================
+    // 5. SHARE MODAL (FORMPREE)
+    // ============================================================
+
+    $('#open-share-modal').click(function() {
+      $('#share-modal').addClass('show');
+    });
+
+    $('#close-share-modal').click(function() {
+      $('#share-modal').removeClass('show');
+    });
+
+    // Close modal on click outside
+    $('#share-modal').click(function(e) {
+      if ($(e.target).is('#share-modal')) {
+        $('#share-modal').removeClass('show');
+      }
+    });
+
+    // ============================================================
+    // 6. FORMPREE SUBMISSION
+    // ============================================================
+    $('#send-share-form').click(function() {
+      const name = $('#share-name').val().trim() || 'Anonymous';
+      const quote = $('#share-quote').val().trim();
+      const source = $('#share-source').val().trim();
+
+      if (!quote) {
+        alert('Please enter a quote to share.');
+        return;
+      }
+
+      // Disable button to prevent double-clicks
+      const btn = $(this);
+      btn.prop('disabled', true).text('Sending...');
+
+      // Send to Formspree
+      $.ajax({
+        url: 'https://formspree.io/f/YOUR_FORM_ID_HERE',  // <--- REPLACE THIS WITH YOUR FORMSPREE FORM ID
+        method: 'POST',
+        data: {
+          name: name,
+          quote: quote,
+          source: source,
+          _subject: 'New Quote Submission from Suzanne\'s Quotes'
+        },
+        dataType: 'json',
+        success: function() {
+          alert('Thank you! Your quote was sent successfully.');
+          $('#share-modal').removeClass('show');
+          $('#share-name, #share-quote, #share-source').val(''); // clear fields
+          btn.prop('disabled', false).text('Send');
+        },
+        error: function() {
+          alert('Oops! Something went wrong. Please try again or contact me directly.');
+          btn.prop('disabled', false).text('Send');
+        }
+      });
+    });
+
+    // ============================================================
+    // 7. INIT
+    // ============================================================
+    filterQuotes();
+
+  });
+</script>
+
+</body>
 </html>
