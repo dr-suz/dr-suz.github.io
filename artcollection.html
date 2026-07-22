@@ -1,55 +1,466 @@
-<!DOCTYPE HTML>
-<html>
-
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Suzanne's art collection</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suzanne's Art Collection</title>
+  
+  <!-- Modern jQuery via CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    /* --- Background --- */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a1a; /* dark blue/black */
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      color: #e8e6e0;
+    }
+
+    /* --- LEFT SIDEBAR --- */
+    #sidebar {
+      width: 280px;
+      min-height: 100vh;
+      background: rgba(10, 10, 30, 0.95);
+      padding: 30px 20px;
+      box-sizing: border-box;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    #sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    #sidebar::-webkit-scrollbar-thumb {
+      background: #8a7a5a;
+      border-radius: 3px;
+    }
+
+    .sidebar-title {
+      color: #d4c9b0;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin: 0 0 5px 0;
+      font-size: 1.6rem;
+    }
+    .sidebar-subtitle {
+      color: #b0a890;
+      font-size: 0.85rem;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      color: #c0b090;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid rgba(255,255,255,0.08);
+      width: fit-content;
+    }
+    .back-btn:hover {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+
+    /* Collection list (scrollable) */
+    #collection-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+    #collection-list li {
+      padding: 12px 16px;
+      margin-bottom: 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-size: 0.95rem;
+      color: #b0a890;
+    }
+    #collection-list li:hover {
+      background: rgba(255,255,255,0.05);
+      color: #d4c9b0;
+    }
+    #collection-list li.active {
+      background: #8a7a5a;
+      color: #1a1a2a;
+      font-weight: 600;
+    }
+
+    /* --- MAIN CONTENT --- */
+    #main-content {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    #gallery-box {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(10, 10, 30, 0.85);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+
+    /* Collection title and metadata */
+    #collection-title {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: #d4c9b0;
+      margin: 0 0 4px 0;
+    }
+    #collection-metadata {
+      font-size: 0.9rem;
+      color: #b0a890;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    /* Image display */
+    #image-container {
+      position: relative;
+      width: 100%;
+      max-height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    #image-container img {
+      max-width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      display: block;
+    }
+    #image-counter {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      background: rgba(0,0,0,0.7);
+      color: #d4c9b0;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    /* Caption */
+    #image-caption {
+      font-size: 1rem;
+      color: #c0b090;
+      min-height: 2.5em;
+      padding: 0 10px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* Navigation buttons */
+    #nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    #nav-buttons button {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #e8e6e0;
+      padding: 10px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+      min-width: 100px;
+    }
+    #nav-buttons button:hover:not(:disabled) {
+      background: #8a7a5a;
+      color: #1a1a2a;
+    }
+    #nav-buttons button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Footer */
+    .main-footer {
+      margin-top: 30px;
+      font-size: 0.7rem;
+      color: #5a5a4a;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 16px;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 800px) {
+      body {
+        flex-direction: column;
+      }
+      #sidebar {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding: 20px;
+      }
+      #collection-list {
+        max-height: 200px;
+      }
+      #main-content {
+        padding: 20px;
+      }
+      #gallery-box {
+        padding: 20px;
+      }
+      #collection-title {
+        font-size: 1.4rem;
+      }
+      #nav-buttons button {
+        padding: 8px 16px;
+        min-width: 70px;
+      }
+    }
+  </style>
 </head>
-
-<!---<style>
-body {
-  background-image: url('images/scroll.jpeg');
-  background-size: 1440px 700px;
-  /*background-size: cover;*/
-  /* background-size: contain; */
-  background-repeat: no-repeat;
-}
-</style> ---> 
-
-<!-- <div class="quotesBackground"> </div> --> 
-
-<!--<body img> style="background-image:url('images/scroll.jpeg');" 
-  <div id="main">
-    <header>
-      <div id="logo"><h1>Quotes</h1></div>
-    </header>
-   </div> ---> 
 <body>
-  <!--- <div id="content", id="main"> --->
-      <h2>Zoe Leonard <it>Strange Fruit (1992-97)</it> <small>Philadelphia Museum of Art, March 2023</small> </h2>
-      <table>
-        <tr>
-          <th><a href="ZLeonardStrangeFruit.html">
-            <img src="images/StrangeFruit1.jpg" alt="Thumbnail image of the Strange Fruit art installation.">
-            </a>
-            </th>
-          <th><par>
-            Empty fruit skins sewed together and meant to decay on display. Created in NY in the early days of the AIDS crisis. "In this climate of discrimination and neglect, people were dying daily, their bodies treated by the US government and healthcare industries as disposable." Named after the song; fruit representing life's fagility. "...[I]n this work the process of decomposition unfolds before our eyes, offering a haunting and poignant meditation on mortality and transformation."
-            </par></th>
-        </tr>
-        <tr>
-            <td>Ex</td>
-            <td>Ex</td>
-        </tr>
-    </table>
-      
- <!---     </div> ---> 
-</body>
-   <div>
-    <footer> 
-      <p><font color="white">&copy; 2023 Suzanne Thornton. All Rights Reserved. <br>
-        <b>Image:</b> <i>MegaPixel</i> on Shutterstock.</font></p>
-    </footer>
+
+<!-- ===== SIDEBAR ===== -->
+<div id="sidebar">
+  <h1 class="sidebar-title">Art Collection</h1>
+  <div class="sidebar-subtitle">Original photography</div>
+
+  <!-- Back button -->
+  <a href="fun.html" class="back-btn">← Back to Fun</a>
+
+  <!-- Collection list -->
+  <ul id="collection-list"></ul>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main-content">
+  <div id="gallery-box">
+    <h2 id="collection-title">Loading...</h2>
+    <div id="collection-metadata"></div>
+
+    <div id="image-container">
+      <img id="gallery-image" src="" alt="Artwork">
+      <span id="image-counter"></span>
+    </div>
+
+    <div id="image-caption"></div>
+
+    <div id="nav-buttons">
+      <button id="prev-image" disabled>← Previous</button>
+      <button id="next-image" disabled>Next →</button>
+    </div>
+
+    <div class="main-footer">
+      &copy; 2023 Suzanne Thornton. All Rights Reserved.
+    </div>
   </div>
-<!-- </body> --> 
+</div>
+
+<script>
+  $(document).ready(function() {
+
+    // ============================================================
+    // 1. YOUR ART COLLECTIONS DATABASE (JSON)
+    //    Add new collections here. 
+    //    The first collection will be shown by default.
+    //    Each image must have a filename and a caption.
+    // ============================================================
+    const collectionsData = [
+      {
+        id: "strange-fruit",
+        title: "Zoe Leonard: Strange Fruit",
+        metadata: "Philadelphia Museum of Art, March 2023",
+        images: [
+          {
+            src: "images/StrangeFruit1.jpg",
+            caption: "Installation view of 'Strange Fruit' (1992–97) – empty fruit skins sewn together."
+          },
+          {
+            src: "images/StrangeFruit2.jpg",
+            caption: "Detail: Each fruit skin is carefully sewn, preserving the shape of the original fruit."
+          },
+          {
+            src: "images/StrangeFruit3.jpg",
+            caption: "The pieces are meant to decay over time, a meditation on mortality and neglect."
+          }
+        ]
+      },
+      {
+        id: "philadelphia-streets",
+        title: "Philadelphia Streets",
+        metadata: "Various locations, Winter 2023",
+        images: [
+          {
+            src: "images/philly1.jpg",
+            caption: "The Benjamin Franklin Parkway on a snowy morning."
+          },
+          {
+            src: "images/philly2.jpg",
+            caption: "Street art in Fishtown – a vibrant mural on a warehouse wall."
+          },
+          {
+            src: "images/philly3.jpg",
+            caption: "Reading Terminal Market at dawn – quiet before the crowds."
+          },
+          {
+            src: "images/philly4.jpg",
+            caption: "The skyline from the Schuylkill River Trail."
+          }
+        ]
+      },
+      {
+        id: "garden-studies",
+        title: "Garden Studies",
+        metadata: "Morris Arboretum, Summer 2023",
+        images: [
+          {
+            src: "images/garden1.jpg",
+            caption: "A single lotus flower blooming in the water garden."
+          },
+          {
+            src: "images/garden2.jpg",
+            caption: "Fern fronds unfurling in the shade of a giant oak."
+          },
+          {
+            src: "images/garden3.jpg",
+            caption: "Sunlight filtering through the canopy of a Japanese maple."
+          }
+        ]
+      }
+      // --- ADD MORE COLLECTIONS BELOW ---
+    ];
+
+    // ============================================================
+    // 2. APP STATE
+    // ============================================================
+    let currentCollectionIndex = 0;      // which collection is active (0 = first)
+    let currentImageIndex = 0;           // which image inside that collection
+    let currentCollection = null;        // reference to the active collection object
+
+    // ============================================================
+    // 3. CORE FUNCTIONS
+    // ============================================================
+
+    // Render the sidebar list of collection titles
+    function renderCollectionList() {
+      const listHtml = collectionsData.map((coll, index) => {
+        const activeClass = (index === currentCollectionIndex) ? 'active' : '';
+        return `<li class="${activeClass}" data-index="${index}">${coll.title}</li>`;
+      }).join('');
+      $('#collection-list').html(listHtml);
+    }
+
+    // Load a specific collection by index
+    function loadCollection(index) {
+      if (index < 0 || index >= collectionsData.length) return;
+      
+      currentCollectionIndex = index;
+      currentCollection = collectionsData[index];
+      currentImageIndex = 0; // reset to first image
+
+      // Update sidebar
+      renderCollectionList();
+
+      // Update header
+      $('#collection-title').text(currentCollection.title);
+      $('#collection-metadata').text(currentCollection.metadata);
+
+      // Display first image
+      displayImage(currentImageIndex);
+    }
+
+    // Display a specific image in the current collection
+    function displayImage(index) {
+      if (!currentCollection || index < 0 || index >= currentCollection.images.length) {
+        return;
+      }
+
+      const imageData = currentCollection.images[index];
+      $('#gallery-image').attr('src', imageData.src);
+      $('#gallery-image').attr('alt', imageData.caption);
+      $('#image-caption').text(imageData.caption);
+
+      // Update counter
+      $('#image-counter').text(`${index + 1} / ${currentCollection.images.length}`);
+
+      // Update buttons
+      $('#prev-image').prop('disabled', index === 0);
+      $('#next-image').prop('disabled', index === currentCollection.images.length - 1);
+    }
+
+    // ============================================================
+    // 4. EVENT LISTENERS
+    // ============================================================
+
+    // Click on a collection title in the sidebar
+    $(document).on('click', '#collection-list li', function() {
+      const index = parseInt($(this).data('index'));
+      if (index !== currentCollectionIndex) {
+        loadCollection(index);
+      }
+    });
+
+    // Previous image
+    $('#prev-image').click(function() {
+      if (currentImageIndex > 0) {
+        currentImageIndex--;
+        displayImage(currentImageIndex);
+      }
+    });
+
+    // Next image
+    $('#next-image').click(function() {
+      if (currentImageIndex < currentCollection.images.length - 1) {
+        currentImageIndex++;
+        displayImage(currentImageIndex);
+      }
+    });
+
+    // ============================================================
+    // 5. INITIAL LOAD
+    // ============================================================
+
+    // Load the first collection by default (most recently updated)
+    if (collectionsData.length > 0) {
+      loadCollection(0);
+    } else {
+      $('#collection-title').text('No collections yet.');
+      $('#collection-metadata').text('Add your art collections to the JSON data.');
+    }
+
+  });
+</script>
+
+</body>
 </html>
